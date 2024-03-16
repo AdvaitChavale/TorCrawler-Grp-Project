@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.torcrawler.ui.screen.DetailScreen
 import com.example.torcrawler.ui.screen.HomeScreen
 import com.example.torcrawler.ui.theme.TorCrawlerTheme
 
@@ -36,20 +37,13 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(navController = navController)
                         }
                         composable(Screen.Detail.route) {
-                            DetailScreen(navController = navController)
+                            DetailScreen()
                         }
                     }
                 }
             }
         }
     }
-}
-
-@Composable
-fun DetailScreen(
-    navController: NavController
-) {
-    Text(text ="Detail Screen")
 }
 
 sealed class Screen(val route: String){

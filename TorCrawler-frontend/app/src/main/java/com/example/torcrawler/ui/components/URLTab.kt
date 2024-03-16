@@ -28,10 +28,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.torcrawler.R
+import com.example.torcrawler.Screen
 
 @Composable
-fun URLTab() {
+fun URLTab(
+    navController: NavController
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween,
@@ -62,7 +66,7 @@ fun URLTab() {
 
             OutlinedButton(
                 shape = RoundedCornerShape(8.dp),
-                onClick = {},
+                onClick = { navController.navigate(Screen.Detail.route)},
                 modifier = Modifier
                     .width(142.dp)
                     .height(44.dp),
