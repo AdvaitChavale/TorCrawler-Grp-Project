@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Tor Crawler</string>
+    <string name="url_tab_disclaimer">By submitting data above, you are agreeing to our Terms of Service and Privacy Policy, and to the sharing of your Sample submission with the security community. Please do not submit any personal information; TorCrawler is not responsible for the contents of your submission. Learn more.</string>
 </resources>
