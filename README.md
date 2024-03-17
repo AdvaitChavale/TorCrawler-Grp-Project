@@ -18,8 +18,16 @@ User-Friendly Interface: Accessible through an Android application with intuitiv
 
 
 <h1>Screen Shots</h1>
-![image](https://github.com/AnuragPandey01/Zoro/assets/96692810/bdbbb214-f0ee-41d7-91bf-42db17fe812b)
-![image](https://github.com/AnuragPandey01/Zoro/assets/96692810/e0ad2ed5-2a6c-4e09-8fa5-5947bf24251b)
+
+![WhatsApp Image 2024-03-17 at 12 17 36_d214e4d7](https://github.com/AnuragPandey01/Zoro/assets/96692810/ca05f49b-4cc7-44a9-8f8f-efad00bac0fd)
+
+
+![WhatsApp Image 2024-03-17 at 12 17 35_2da32eb1](https://github.com/AnuragPandey01/Zoro/assets/96692810/0f9ecc4a-c3f6-4bba-bfe1-d8fc0dda0a6a)
+
+
+![Uploading WhatsApp Image 2024-03-17 at 12.17.33_d51bf476.jpg…]()
+
+
 
 
 
