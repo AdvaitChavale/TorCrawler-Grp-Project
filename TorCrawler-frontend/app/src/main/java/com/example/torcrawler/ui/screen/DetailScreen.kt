@@ -220,7 +220,7 @@ fun Summary(analaysisResponse: AnalaysisResponse) {
                     Box{
                         CircularProgressIndicator(
                             progress = {
-                                0.53f
+                                analaysisResponse.anonymity_score.toFloat() / 100
                             },
                             modifier = Modifier
                                 .padding(bottom = 30.dp)
@@ -228,10 +228,11 @@ fun Summary(analaysisResponse: AnalaysisResponse) {
                                 .align(Alignment.TopCenter),
                             strokeWidth = 15.dp,
                             trackColor = Color(0xFF161625),
-                            strokeCap = StrokeCap.Round
+                            strokeCap = StrokeCap.Round,
+                            color = Color(0xFF7114A0)
                         )
-                        Text(text = "${53}%", modifier = Modifier.align(Alignment.Center))
-                        Text(text = "Accessibility", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color.White, modifier = Modifier.align(Alignment.BottomCenter))
+                        Text(text = "${analaysisResponse.anonymity_score}%", modifier = Modifier.align(Alignment.Center))
+                        Text(text = "Anonymity", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color.White, modifier = Modifier.align(Alignment.BottomCenter))
                     }
 
                     Box{
@@ -262,7 +263,8 @@ fun Summary(analaysisResponse: AnalaysisResponse) {
                                 .align(Alignment.TopCenter),
                             progress = {
                                 analaysisResponse.legal_risk.toFloat() / 100
-                            }
+                            },
+                            color = Color(0xFF48F145)
                         )
                         Text(text = "${analaysisResponse.legal_risk}%", modifier = Modifier.align(Alignment.Center))
                         Text(text = "Illegality", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color.White, modifier = Modifier.align(Alignment.BottomCenter))

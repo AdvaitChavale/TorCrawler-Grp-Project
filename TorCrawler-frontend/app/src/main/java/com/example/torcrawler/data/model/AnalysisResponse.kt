@@ -11,5 +11,6 @@ data class AnalaysisResponse(
     val security_risk_title: String,
     val threat_risk: Int,
     val title: String,
-    val url: String
+    val url: String,
+    val anonymity_score: Int,
 )
