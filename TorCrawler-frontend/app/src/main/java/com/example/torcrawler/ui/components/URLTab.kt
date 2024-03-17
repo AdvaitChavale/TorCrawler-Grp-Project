@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.torcrawler.R
 import com.example.torcrawler.Screen
+import com.example.torcrawler.util.Util
 
 @Composable
 fun URLTab(
@@ -66,7 +67,10 @@ fun URLTab(
 
             OutlinedButton(
                 shape = RoundedCornerShape(8.dp),
-                onClick = { navController.navigate(Screen.Detail.route)},
+                onClick = {
+                      Util.curr_onion = textState
+                      navController.navigate(Screen.Detail.route)
+                },
                 modifier = Modifier
                     .width(142.dp)
                     .height(44.dp),

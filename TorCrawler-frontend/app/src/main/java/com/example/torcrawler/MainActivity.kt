@@ -10,10 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.torcrawler.ui.screen.DetailScreen
+import com.example.torcrawler.ui.screen.DetectedOnionScreen
 import com.example.torcrawler.ui.screen.HomeScreen
 import com.example.torcrawler.ui.theme.TorCrawlerTheme
 
@@ -36,8 +39,23 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.Home.route){
                             HomeScreen(navController = navController)
                         }
-                        composable(Screen.Detail.route) {
+
+                        composable(
+                            Screen.Detail.route
+                        ){
                             DetailScreen()
+                        }
+
+                        composable(
+                            Screen.DetectedOnions.route+"/{search_term}",
+                            arguments = listOf(navArgument("search_term"){
+                                type = NavType.StringType
+                            })
+                        ){backStackEntry ->
+                            DetectedOnionScreen(
+                                search_term = backStackEntry.arguments?.getString("search_term")?:"",
+                                navController
+                            )
                         }
                     }
                 }
@@ -49,6 +67,7 @@ class MainActivity : ComponentActivity() {
 sealed class Screen(val route: String){
     data object Home: Screen("home")
     data object Detail: Screen("detail")
+    data object DetectedOnions: Screen("detectedOnions")
 }
 
 

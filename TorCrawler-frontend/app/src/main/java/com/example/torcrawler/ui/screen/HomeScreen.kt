@@ -106,7 +106,7 @@ fun HomeScreen(navController: NavController){
         ){index ->
             when(index){
                 0 -> URLTab(navController)
-                1 -> SearchTab()
+                1 -> SearchTab(navController)
             }
         }
     }

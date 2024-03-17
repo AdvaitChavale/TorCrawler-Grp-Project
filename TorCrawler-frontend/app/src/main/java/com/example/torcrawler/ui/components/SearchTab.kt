@@ -17,6 +17,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -27,10 +28,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.torcrawler.R
 
 @Composable
-fun SearchTab() {
+fun SearchTab(
+    navController: NavController
+) {
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween,
@@ -61,7 +67,9 @@ fun SearchTab() {
 
             OutlinedButton(
                 shape = RoundedCornerShape(8.dp),
-                onClick = {},
+                onClick = {
+                    navController.navigate("detectedOnions/$textState")
+                },
                 modifier = Modifier
                     .width(142.dp)
                     .height(44.dp),
@@ -80,3 +88,5 @@ fun SearchTab() {
 
     }
 }
+
+private const val TAG = "SearchTab"
