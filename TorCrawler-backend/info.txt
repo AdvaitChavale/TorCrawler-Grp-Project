@@ -1,6 +1,0 @@
-links
-highlight comments
-tables 
-forms
-images
-alt
