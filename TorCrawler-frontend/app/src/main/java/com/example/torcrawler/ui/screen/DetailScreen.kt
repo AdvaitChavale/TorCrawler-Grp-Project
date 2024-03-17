@@ -1,9 +1,7 @@
 package com.example.torcrawler.ui.screen
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +21,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -40,11 +37,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -52,10 +48,14 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.torcrawler.R
 import com.example.torcrawler.data.model.AnalaysisResponse
-import com.example.torcrawler.data.model.IdentifiedThreats
 import com.example.torcrawler.util.Util
+
 
 @Composable
 fun DetailScreen(
@@ -72,13 +72,9 @@ fun DetailScreen(
         viewModel.searchOnion(urls)
     }
 
-    LaunchedEffect(analaysisResponse) {
-        Log.d(TAG, "DetailScreen: $analaysisResponse")
-    }
-
     if(analaysisResponse == null){
         // show loading
-
+        LottieSearchAnimation()
         return
     }
 
@@ -170,7 +166,7 @@ fun DetailScreen(
             1 -> Header(analaysisResponse!!)
             2 -> Links(analaysisResponse!!)
             3 -> IdentifiedThreatsView(analaysisResponse!!)
-            4 -> Images()
+            4 -> Images(analaysisResponse!!)
         }
     }
 }
@@ -390,8 +386,45 @@ fun IdentifiedThreatsView(
 }
 
 @Composable
-fun Images() {
+fun Images(
+    analaysisResponse: AnalaysisResponse
+) {
+    Card(
+        shape = RoundedCornerShape(12.dp),
+        colors = CardColors(containerColor = Color(0xFF242C43), contentColor = Color.White, disabledContainerColor = Color.White, disabledContentColor = Color.White),
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        Column {
+            Text(
+                text = "Images",
+                modifier = Modifier.padding(top = 20.dp, start = 20.dp),
+                fontSize = 24.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.White
+            )
 
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+            ){
+                items(analaysisResponse.header_tags.size) {
+                    Card(
+                        colors = CardColors(containerColor = Color(0xFF8CABFC), contentColor = Color.White, disabledContainerColor = Color.White, disabledContentColor = Color.White),
+                        modifier = Modifier.fillMaxWidth()
+                    ){
+                        Column {
+                            Text(text = analaysisResponse.images[it].url,modifier = Modifier.padding(top = 10.dp,start = 10.dp, end = 10.dp), textDecoration = TextDecoration.Underline)
+                            Text(text = "Title: ${analaysisResponse.images[it].title}",modifier = Modifier.padding(10.dp),color = Color(0xFF272525))
+                            Text(text = "Alt: ${analaysisResponse.images[it].alt}",modifier = Modifier.padding(10.dp),color = Color(0xFF272525))
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 private const val TAG = "DetailScreen"
@@ -402,6 +435,21 @@ private fun getThreatColor(threat: Int): Color {
         2 -> Color(0xFFF0750F)
         else -> Color(0xFFFF0000)
     }
+}
+
+@Composable
+fun LottieSearchAnimation() {
+    // Way 1: Using a Raw Animation File
+    val rawComposition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.search_lottie))
+
+    val progress by animateLottieCompositionAsState(composition = rawComposition, iterations = Int.MAX_VALUE) // Use 'urlComposition' for Way 2
+
+    LottieAnimation(
+        composition = rawComposition,
+        progress = { progress },
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.Inside,
+    )
 }
 
 

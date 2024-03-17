@@ -26,6 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.airbnb.lottie.utils.Utils
+import com.example.torcrawler.Screen
+import com.example.torcrawler.util.Util
 
 @Composable
 fun DetectedOnionScreen(
@@ -37,6 +40,11 @@ fun DetectedOnionScreen(
     val result by viewmodel.searchResults.observeAsState(emptyList())
     LaunchedEffect(Unit) {
         viewmodel.searchOnion(search_term)
+    }
+
+    if(result.isEmpty()){
+        LottieSearchAnimation()
+        return
     }
 
     Column(
@@ -65,7 +73,12 @@ fun DetectedOnionScreen(
         ) {
             items(result.size) {
                 Card(
-                    modifier = Modifier.fillMaxWidth().clickable { navController.navigate("detail/${result[it]}") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            Util.curr_onion = result[it]
+                            navController.navigate(Screen.Detail.route)
+                       },
                     colors = CardColors(containerColor = Color(0xFF242C43), contentColor = Color.White, disabledContentColor = Color.White, disabledContainerColor = Color.White),
                 ) {
                     Text(text = result[it], textDecoration = TextDecoration.Underline, modifier = Modifier.padding(vertical = 12.dp, horizontal = 16.dp))
